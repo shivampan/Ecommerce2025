@@ -1,10 +1,7 @@
 package com.shivam.ecommerce2025.Controller;
 
 import com.shivam.ecommerce2025.Models.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +14,12 @@ public class ProductController {
     public Product getSingleProduct(@PathVariable("id") Long ProductId){
         return new Product();
     }
-    @GetMapping()
+    @GetMapping("/")
     public List<Product> getAllProducts(){
         return new ArrayList<>();
+    }
+    @PostMapping()
+    public Product createProduct(@RequestBody Product product){
+        return new  Product();
     }
 }
