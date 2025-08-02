@@ -1,6 +1,7 @@
 package com.shivam.ecommerce2025.Controller;
 
 import com.shivam.ecommerce2025.Models.Product;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,5 +22,9 @@ public class ProductController {
     @PostMapping()
     public Product createProduct(@RequestBody Product product){
         return new  Product();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long ProductId){
+        return null;
     }
 }
