@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/Products")
 public class ProductController {
@@ -13,5 +16,9 @@ public class ProductController {
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long ProductId){
         return new Product();
+    }
+    @GetMapping()
+    public List<Product> getAllProducts(){
+        return new ArrayList<>();
     }
 }
