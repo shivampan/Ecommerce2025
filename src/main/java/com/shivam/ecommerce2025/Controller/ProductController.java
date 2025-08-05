@@ -1,6 +1,7 @@
 package com.shivam.ecommerce2025.Controller;
 
 import com.shivam.ecommerce2025.Models.Product;
+import com.shivam.ecommerce2025.Services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,16 @@ import java.util.List;
 @RequestMapping("/Products")
 public class ProductController {
 
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long ProductId){
-        return new Product();
+        return productService.getSingleProduct(ProductId);
+
     }
     @GetMapping("/")
     public List<Product> getAllProducts(){
