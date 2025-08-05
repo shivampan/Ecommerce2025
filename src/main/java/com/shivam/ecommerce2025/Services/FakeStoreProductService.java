@@ -1,16 +1,23 @@
 package com.shivam.ecommerce2025.Services;
 
 import com.shivam.ecommerce2025.Models.Product;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 //The real class where the code will be written to call the FakeStoreApis
+@Service
 public class FakeStoreProductService implements ProductService {
+    private RestTemplate restTemplate;
+
+    public FakeStoreProductService(RestTemplate restTemplate){
+        this.restTemplate = restTemplate;
+    }
 
     @Override
-    public Product getSingleProduct(Long id) {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForEntity("https://fakestoreapi.in/api/products" + id, Product.class);
+    public Product getSingleProduct(Long productid) {
+        restTemplate.getForEntity("https://fakestoreapi.in/api/products" + productid, Product.class);
 
         return null;
     }
