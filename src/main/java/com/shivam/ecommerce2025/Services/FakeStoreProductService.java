@@ -1,6 +1,8 @@
 package com.shivam.ecommerce2025.Services;
 
 import com.shivam.ecommerce2025.Models.Product;
+import com.shivam.ecommerce2025.dtos.FakeStoreProductDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +19,8 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getSingleProduct(Long productid) {
-        restTemplate.getForEntity("https://fakestoreapi.in/api/products" + productid, Product.class);
+        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.in/api/products" + productid,
+                FakeStoreProductDto.class);
 
         return null;
     }
