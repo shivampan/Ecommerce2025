@@ -3,6 +3,8 @@ package com.shivam.ecommerce2025.Services;
 import com.shivam.ecommerce2025.Models.Category;
 import com.shivam.ecommerce2025.Models.Product;
 import com.shivam.ecommerce2025.dtos.FakeStoreProductDto;
+import com.shivam.ecommerce2025.exceptions.ProductNotFoundException;
+import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,15 +18,21 @@ public class FakeStoreProductService implements ProductService {
     private RestTemplate restTemplate;
 
     public FakeStoreProductService(RestTemplate restTemplate){
+
         this.restTemplate = restTemplate;
     }
 
+    @SneakyThrows
     @Override
-    public Product getSingleProduct(Long productid) {
+    public Product getSingleProduct(Long productid) throws ProductNotFoundException {
         ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity
                 ("https://fakestoreapi.in/api/products/" + productid,
                 FakeStoreProductDto.class);
         FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
+
+        if(fakeStoreProductDto==null){
+            throw new ProductNotFoundException("Product with id"+productid+"not found");
+        }
 
         //Convert FakeStoreProductDto into Project Object
         return FakeStoreProductDtotoFakeStoreProduct(fakeStoreProductDto);

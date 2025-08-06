@@ -2,6 +2,7 @@ package com.shivam.ecommerce2025.Controller;
 
 import com.shivam.ecommerce2025.Models.Product;
 import com.shivam.ecommerce2025.Services.ProductService;
+import com.shivam.ecommerce2025.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long ProductId){
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long ProductId) throws ProductNotFoundException {
         ResponseEntity<Product> responseEntity= new  ResponseEntity<>
                 (productService.getSingleProduct(ProductId), HttpStatus.OK);
 
