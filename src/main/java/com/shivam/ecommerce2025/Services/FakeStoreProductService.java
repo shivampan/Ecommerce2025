@@ -33,12 +33,12 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        ResponseEntity<List<FakeStoreProductDto>> fakeStoreProductDtoResponse=
+        ResponseEntity<FakeStoreProductDto[]> fakeStoreProductDtoResponse=
                 restTemplate.getForEntity("https://fakestoreapi.in/api/products",
-                        List<FakeStoreProductDto>.class);
+                        FakeStoreProductDto[].class);
 
 
-        List<FakeStoreProductDto> fakeStoreProductDtos=fakeStoreProductDtoResponse.getBody();
+        FakeStoreProductDto[] fakeStoreProductDtos=fakeStoreProductDtoResponse.getBody();
         List<Product> products = new ArrayList<>();
 
         for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
