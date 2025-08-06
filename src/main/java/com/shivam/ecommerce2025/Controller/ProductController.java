@@ -21,18 +21,20 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long ProductId){
-        ResponseEntity<Product> responseEntity=null;
-        Product product=null;
+        ResponseEntity<Product> responseEntity= new  ResponseEntity<>
+                (productService.getSingleProduct(ProductId), HttpStatus.OK);
 
-        try{
-             product=productService.getSingleProduct(ProductId);
-             responseEntity=new ResponseEntity<>(product, HttpStatus.OK);
 
-        }
-        catch(RuntimeException e){
-            e.getStackTrace();
-            responseEntity=new ResponseEntity<>(product,HttpStatus.NOT_FOUND);
-        }
+
+//        try{
+//             product=productService.getSingleProduct(ProductId);
+//             responseEntity=new ResponseEntity<>(product, HttpStatus.OK);
+//
+//        }
+//        catch(RuntimeException e){
+//            e.getStackTrace();
+//            responseEntity=new ResponseEntity<>(product,HttpStatus.NOT_FOUND);
+//        }
         return responseEntity;
     }
     @GetMapping("/")
