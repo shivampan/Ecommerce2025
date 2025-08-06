@@ -25,10 +25,12 @@ public class ProductController {
     }
     @GetMapping("/")
     public List<Product> getAllProducts(){
+
         return new ArrayList<>();
     }
     @PostMapping()
     public Product createProduct(@RequestBody Product product){
+
         return new  Product();
     }
     @DeleteMapping("/{id}")

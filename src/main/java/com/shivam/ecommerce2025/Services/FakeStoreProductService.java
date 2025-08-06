@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 //The real class where the code will be written to call the FakeStoreApis
 @Service
@@ -20,7 +21,8 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public Product getSingleProduct(Long productid) {
-        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity("https://fakestoreapi.in/api/products" + productid,
+        ResponseEntity<FakeStoreProductDto> fakeStoreProductDtoResponseEntity = restTemplate.getForEntity
+                ("https://fakestoreapi.in/api/products/" + productid,
                 FakeStoreProductDto.class);
         FakeStoreProductDto fakeStoreProductDto = fakeStoreProductDtoResponseEntity.getBody();
 
@@ -31,7 +33,19 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        ResponseEntity<List<FakeStoreProductDto>> fakeStoreProductDtoResponse=
+                restTemplate.getForEntity("https://fakestoreapi.in/api/products",
+                        List<FakeStoreProductDto>.class);
+
+
+        List<FakeStoreProductDto> fakeStoreProductDtos=fakeStoreProductDtoResponse.getBody();
+        List<Product> products = new ArrayList<>();
+
+        for (FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos) {
+            Product product = FakeStoreProductDtotoFakeStoreProduct(fakeStoreProductDto);
+        }
+        return products;
+
     }
 
     @Override
@@ -50,7 +64,7 @@ public class FakeStoreProductService implements ProductService {
         product.setId(fakeStoreProductDto.getId());
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
-        product.setImageurl(fakeStoreProductDto.getImageurl());
+        product.setImageurl(fakeStoreProductDto.getImage());
         product.setDescription(fakeStoreProductDto.getDescription());
 
         Category category = new Category();
