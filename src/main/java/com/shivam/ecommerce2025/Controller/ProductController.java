@@ -2,6 +2,7 @@ package com.shivam.ecommerce2025.Controller;
 
 import com.shivam.ecommerce2025.Models.Product;
 import com.shivam.ecommerce2025.Services.ProductService;
+import com.shivam.ecommerce2025.dtos.ExceptionDto;
 import com.shivam.ecommerce2025.exceptions.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +52,14 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long ProductId){
         return null;
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDto> handleRunTimeException(){
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Handling Exception within the controller");
+        return new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+
+
     }
 }
